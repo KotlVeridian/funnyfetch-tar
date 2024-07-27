@@ -74,10 +74,10 @@ print_info() {
     info "GPU" gpu
     info "Memory" memory
 
-    # info "GPU Driver" gpu_driver  # Linux/macOS only
-    # info "Disk" disk
-    # info "Battery" battery
-    # info "Font" font
+    info "GPU Driver" gpu_driver  # Linux/macOS only
+    info "Disk" disk
+    info "Battery" battery
+    info "Font" font
     # info "Song" song
     # [[ "$player" ]] && prin "Music Player" "$player"
     info "Local IP" local_ip
@@ -91,7 +91,7 @@ print_info() {
 # Title
 
 # NOTE: i removed all of them lol
-ascii_distro="default"
+ascii_distro="auto"
 
 # Hide/Show Fully qualified domain name.
 #
@@ -5490,7 +5490,7 @@ old_functions() {
 }
 
 ascii_secret() {
-    set_colors 1 7 0
+    set_colors 9 7 0
     read -rd '' ascii_data <<'EOF'
 ${c1}
                           .,---.
@@ -5518,20 +5518,29 @@ EOF
 
 
 ascii_default() {
-    set_colors 3 7 0
+    set_colors 3 7 4
     read -rd '' ascii_data <<'EOF'
 ${c1}
-            _   _
-          .-_; ;_-.
-         / /     \ \
-        | |       | |
-         \ \.---./ /
-     .-"~   .---.   ~"-.
-   ,`.-~/ .'`---`'. \~-.`,
-   '`   | | \(_)/ | |   `'
-   ,    \  \ | | /  /    ,
-   ;`'.,_\  `-'-'  /_,.'`;
-   '-._  _.-'^'-._  _.-'  
+                     -$-
+                    .H##H,
+                   +######+
+                .+#########H.
+              -$############@.
+            =H###############@  -X:
+          .$##################:  @#@-
+     ,;  .M###################;  H###;
+   ;@#:  @###################@  ,#####:
+ -M###.  M#################@.  ;######H
+ M####-  +###############$   =@#######X
+ H####$   -M###########+   :#########M,
+  /####X-   =########%   :M########@/.
+    ,;%H@X;   .$###X   :##MM@%+;:-
+                 ..
+  -/;:-,.              ,,-==+M########H
+ -##################@HX%%+%%$%%%+:,,
+    .-/H%%%+%%$H@###############M@+=:/+:
+/XHX%:#####MH%=    ,---:;;;;/&&XHM,:###$
+$@#MX %+;-                           .
 EOF
 }
 

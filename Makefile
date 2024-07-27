@@ -14,3 +14,4 @@ install:
 uninstall:
 	@rm -rf $(DESTDIR)$(PREFIX)/bin/funnyfetch
 	@rm -rf $(DESTDIR)$(MANDIR)/man1/funnyfetch.1*
+	@rm -rdf /root/.config/funnyfetch
