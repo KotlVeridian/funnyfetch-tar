@@ -1459,7 +1459,19 @@ get_uptime() {
             uptime=${uptime//,}
         ;;
     esac
+
+
+    if [ "${s}" -gt $((12 * 86400)) ]; then
+        uptime="${uptime} (man wtf restart yo pc)"
+    fi
+
+
+    if [ "${s}" -gt $((30 * 86400)) ]; then
+        uptime="${uptime} (restart now or i will)"
+    fi
+
 }
+
 
 get_packages() {
     # to adjust the number of pkgs per pkg manager
