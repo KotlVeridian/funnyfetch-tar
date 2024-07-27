@@ -48,10 +48,26 @@ LANG=C
 # Fix issues with gsettings.
 export GIO_EXTRA_MODULES=/usr/lib/x86_64-linux-gnu/gio/modules/
 
-# funnyfetch default config.
-read -rd '' config <<'EOF'
-# See this wiki page for more info:
-# https://github.com/dylanaraps/funnyfetch/wiki/Customizing-Info
+CONFIG_DIR="$HOME/.config/funnyfetch"
+CONFIG_FILE="$CONFIG_DIR/funny.fetch"
+SETUP_COMPLETE_FILE="$CONFIG_DIR/setup.complete"
+
+
+create_config() {
+    echo "Creating default configuration..."
+    mkdir -p "$CONFIG_DIR"
+
+    cat <<EOF > "$CONFIG_FILE"
+
+ascii_art="default"
+# as of now theres 
+# cake
+# heart
+# fire
+# glados
+# as ascii arts
+
+
 print_info() {
     info title
     info underline
@@ -90,8 +106,7 @@ print_info() {
 
 # Title
 
-# NOTE: i removed all of them lol
-ascii_distro="auto"
+
 
 # Hide/Show Fully qualified domain name.
 #
@@ -764,7 +779,6 @@ image_backend="ascii"
 #
 # Default:  'auto'
 # Values:   'auto', 'ascii', 'wallpaper', '/path/to/img', '/path/to/ascii', '/path/to/dir/'
-#           'command output (funnyfetch --ascii "$(fortune | cowsay -W 30)")'
 # Flag:     --source
 #
 # NOTE: 'auto' will pick the best image source for whatever image backend is used.
@@ -781,7 +795,7 @@ image_source="auto"
 #
 # Default: 'auto'
 # Values:  'auto', 'distro_name'
-# Flag:    --ascii_distro
+# Flag:    --ascii_art
 
 
 # Ascii Colors
@@ -893,6 +907,22 @@ background_color=
 # Values: 'on', 'off'
 stdout="off"
 EOF
+
+    echo "Configuration created. Do you want to edit it now? (y/n)"
+    read -r answer
+    if [[ "$answer" == "y" || "$answer" == "Y" ]]; then
+        nano "$CONFIG_FILE"
+        touch "$SETUP_COMPLETE_FILE"
+        echo "I'll never bother you again!"
+    else
+        touch "$SETUP_COMPLETE_FILE"
+    fi
+
+}
+
+if [ ! -f "$SETUP_COMPLETE_FILE" ]; then
+    create_config
+fi
 
 # DETECT INFORMATION
 
@@ -1183,8 +1213,8 @@ get_distro() {
     [[ $os_arch == on ]] && \
         distro+=" $machine_arch"
 
-    [[ ${ascii_distro:-auto} == auto ]] && \
-        ascii_distro=$(trim "$distro")
+    [[ ${ascii_art:-auto} == auto ]] && \
+        ascii_art=$(trim "$distro")
 }
 
 get_model() {
@@ -5104,7 +5134,7 @@ IMAGE BACKEND:
 
 ASCII:
     --ascii_colors x x x x x x  Colors to print the ascii art
-    --ascii_distro distro       Which Distro's ascii art to print
+    --ascii_art distro       Which Distro's ascii art to print
 
                                 NOTE: AIX, Hash, Alpine, AlterLinux, Amazon, Anarchy, Android,
                                 instantOS, Antergos, antiX, \"AOSC OS\", \"AOSC OS/Retro\",
@@ -5362,9 +5392,9 @@ get_args() {
                 ascii_colors+=(7 7 7 7 7 7)
             ;;
 
-            "--ascii_distro")
+            "--ascii_art")
                 image_backend="ascii"
-                ascii_distro="$2"
+                ascii_art="$2"
             ;;
 
             "--ascii_bold") ascii_bold="$2" ;;
@@ -5489,7 +5519,7 @@ old_functions() {
     get_cpu_usage() { :; }
 }
 
-ascii_secret() {
+ascii_heart() {
     set_colors 9 7 0
     read -rd '' ascii_data <<'EOF'
 ${c1}
@@ -5517,8 +5547,88 @@ EOF
 }
 
 
+
 ascii_default() {
-    set_colors 3 7 4
+    set_colors 9 7 4
+    read -rd '' ascii_data <<'EOF'
+${c1}
+            ________
+        _jgN########Ngg_
+      _N##N@@""  ""9NN##Np_
+     d###P            N####p
+     "^^"              T####
+                       d###P
+                    _g###@F
+                 _gN##@P
+               gN###F"
+              d###F
+             0###F
+             0###F
+             0###F
+             "NN@'
+
+              ___
+             q###r
+              ""
+EOF
+}
+
+ascii_cake() {
+    set_colors 9 7 4
+    read -rd '' ascii_data <<'EOF'
+${c1}
+            ,:/+/-
+            /M/              .,-=;//;-
+       .:/= ;MH/,    ,=/+%$XH@MM#@:
+      -$##@+$###@H@MMM#######H:.    -/H#
+ .,H@H@ X######@ -H#####@+-     -+H###@X
+  .,@##H;      +XM##M/,     =%@###@X;-
+X%-  :M##########$.    .:%M###@%:
+M##H,   +H@@@$/-.  ,;$M###@%,          -
+M####M=,,---,.-%%H####M$:          ,+@##
+@##################@/.         :%H##@$-
+M###############H,         ;HM##M$=
+#################.    .=$M##M$=
+################H..;XM##M$=          .:+
+M###################@%=           =+@MH%
+@#################M/.         =+H#X%=
+=+M###############M,      ,/X#H+:,
+  .;XM###########H=   ,/X#H+:;
+     .=+HM#######M+/+HM@+=.
+         ,:/%XM####H/.
+              ,.:=-.
+EOF
+}
+
+ascii_glados() {
+    set_colors 9 7 4
+    read -rd '' ascii_data <<'EOF'
+${c1}
+       #+ @      # #              M#@
+ .    .X  X.%##@;# #   +@#######X. @H%
+   ,==.   ,######M+  -#####%M####M-    #
+  :H##M%:=##+ .M##M,;#####/+#######% ,M#
+ .M########=  =@#@.=#####M=M#######=  X#
+ :@@MMM##M.  -##M.,#######M#######. =  M
+             @##..###:.    .H####. @@ X,
+   ############: ###,/####;  /##= @#. M
+           ,M## ;##,@#M;/M#M  @# X#% X#
+.%=   ######M## ##.M#:   ./#M ,M #M ,#$
+##/         $## #+;#: #### ;#/ M M- @# :
+#+ #M@MM###M-;M #:$#-##$H# .#X @ + $#. #
+      ######/.: #%=# M#:MM./#.-#  @#: H#
++,.=   @###: /@ %#,@  ##@X #,-#@.##% .@#
+#####+;/##/ @##  @#,+       /#M    . X,
+   ;###M#@ M###H .#M-     ,##M  ;@@; ###
+   .M#M##H ;####X ,@#######M/ -M###$  -H
+    .M###%  X####H  .@@MM@;  ;@#M@
+      H#M    /@####/      ,++.  / ==-,
+               ,=/:, .+X@MMH@#H  #####$=
+EOF
+}
+
+ascii_fire() {
+    set_colors 9 7 4
     read -rd '' ascii_data <<'EOF'
 ${c1}
                      -$-
@@ -5547,9 +5657,14 @@ EOF
 #nvm just me being stupid
 
 get_distro_ascii() {
-    # Check if we should show secret ASCII art
-    if [[ $ascii_distro == "secret" ]]; then
-        ascii_secret
+    if [[ $ascii_art == "heart" ]]; then
+        ascii_heart
+    elif [[ $ascii_art == "fire" ]]; then
+        ascii_fire
+    elif [[ $ascii_art == "cake" ]]; then
+        ascii_cake
+    elif [[ $ascii_art == "glados" ]]; then
+        ascii_glados
     else
         ascii_default
     fi
@@ -5615,5 +5730,20 @@ main() {
 
     return 0
 }
+
+# Path to the Neofetch configuration file
+config_file="${XDG_CONFIG_HOME:-$HOME/.config}/funnyfetch/funny.fetch"
+
+# Check if the configuration file exists
+if [ ! -f "$config_file" ]; then
+    echo "Configuration file not found. Opening nano to create one..."
+    
+    # Create the directory if it doesn't exist
+    mkdir -p "$(dirname "$config_file")"
+
+
+    # Open nano to edit the configuration file
+    nano "$config_file"
+fi
 
 main "$@"
