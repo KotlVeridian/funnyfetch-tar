@@ -3392,7 +3392,7 @@ END
 
         "deepin-terminal"*)
             term_font="$(awk -F '=' '/font=/ {a=$2} /font_size/ {b=$2} END {print a,b}' \
-                         "${XDG_CONFIG_HOME}/deepin/deepin-terminal/config.conf")"
+                         "${XDG_CONFIG_HOME}/deepin/deepin-terminal/funny.fetch")"
         ;;
 
         "GNUstep_Terminal")
@@ -4740,22 +4740,22 @@ get_full_path() {
 }
 
 get_user_config() {
-    # --config /path/to/config.conf
+    # --config /path/to/funny.fetch
     if [[ -f "$config_file" ]]; then
         source "$config_file"
         err "Config: Sourced user config. (${config_file})"
         return
 
-    elif [[ -f "${XDG_CONFIG_HOME}/funnyfetch/config.conf" ]]; then
-        source "${XDG_CONFIG_HOME}/funnyfetch/config.conf"
-        err "Config: Sourced user config.    (${XDG_CONFIG_HOME}/funnyfetch/config.conf)"
+    elif [[ -f "${XDG_CONFIG_HOME}/funnyfetch/funny.fetch" ]]; then
+        source "${XDG_CONFIG_HOME}/funnyfetch/funny.fetch"
+        err "Config: Sourced user config.    (${XDG_CONFIG_HOME}/funnyfetch/funny.fetch)"
 
     elif [[ -f "${XDG_CONFIG_HOME}/funnyfetch/config" ]]; then
         source "${XDG_CONFIG_HOME}/funnyfetch/config"
         err "Config: Sourced user config.    (${XDG_CONFIG_HOME}/funnyfetch/config)"
 
     elif [[ -z "$no_config" ]]; then
-        config_file="${XDG_CONFIG_HOME}/funnyfetch/config.conf"
+        config_file="${XDG_CONFIG_HOME}/funnyfetch/funny.fetch"
 
         # The config file doesn't exist, create it.
         mkdir -p "${XDG_CONFIG_HOME}/funnyfetch/"
