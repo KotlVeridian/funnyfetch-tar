@@ -24,25 +24,12 @@ install_package() {
 }
 
 if ! command_exists git; then
-    echo "git is not installed. Would you like to install it? (y/n)"
-    read -r install_git
-    if [[ $install_git == "y" ]]; then
-        install_package git
-    else
-        echo "git is required to clone the repository. Exiting."
-        exit 1
-    fi
+    echo "git is not installed. Please install git"
+    exit 1
 fi
 
 if ! command_exists make; then
-    echo "make is not installed. Would you like to install it? (y/n)"
-    read -r install_make
-    if [[ $install_make == "y" ]]; then
-        install_package make
-    else
-        echo "make is required to build the project. Exiting."
-        exit 1
-    fi
+    echo "make is not installed. Please install make"
 fi
 
 git clone https://github.com/whatdidyouexpect/funnyfetch || {
