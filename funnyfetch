@@ -5654,6 +5654,35 @@ $@#MX %+;-                           .
 EOF
 }
 
+ascii_neutron() {
+    set_colors 9 7 4
+    read -rd '' ascii_data <<'EOF'
+${c1}
+                 =/;;/-
+                +:    //
+               /;      /;
+              -X        H.
+.//;;;:;;-,   X=        :+   .-;:=;:;%;.
+M-       ,=;;;#:,      ,:#;;:=,       ,@
+:%           :%.=/++++/=.$=           %=
+ ,%;         %/:+/;,,/++:+/         ;+.
+   ,+/.    ,;@+,        ,%H;,    ,/+,
+      ;+;;/= @.  .H##X   -X :///+;
+      ;+=;;;.@,  .XM@$.  =X.//;=%/.
+   ,;:      :@%=        =$H:     .+%-
+ ,%=         %;-///==///-//         =%,
+;+           :%-;;;;;;;;-X-           +:
+@-      .-;;;;M-        =M/;;;-.      -X
+ :;;::;;-.    %-        :+    ,-;;-;:==
+              ,X        H.
+               ;/      %=
+                //    +;
+                 ,////,
+EOF
+}
+
+
+
 #nvm just me being stupid
 
 get_distro_ascii() {
@@ -5665,6 +5694,8 @@ get_distro_ascii() {
         ascii_cake
     elif [[ $ascii_art == "glados" ]]; then
         ascii_glados
+    elif [[ $ascii_art == "neutron" ]]; then
+        ascii_neutron
     else
         ascii_default
     fi
