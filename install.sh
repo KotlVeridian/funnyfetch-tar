@@ -30,6 +30,7 @@ fi
 
 if ! command_exists make; then
     echo "make is not installed. Please install make"
+    exit 1
 fi
 
 git clone https://github.com/whatdidyouexpect/funnyfetch || {
