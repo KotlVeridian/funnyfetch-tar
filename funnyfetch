@@ -59,7 +59,7 @@ create_config() {
 
     cat <<EOF > "$CONFIG_FILE"
 
-ascii_art="default"
+ascii_art="heart"
 # as of now theres 
 # cake
 # heart
